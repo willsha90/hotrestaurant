@@ -1,5 +1,5 @@
 
-const waitBtn = document.getElementById('waitlist-btn');
+const waitBtn = document.getElementById('btn-primary');
 
 waitBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -8,7 +8,7 @@ waitBtn.addEventListener('click', (e) => {
   let guestPhone = document.getElementById('phone').value.trim();
   let guestEmail = document.getElementById('email').value.trim();
   let guestId = document.getElementById('id').value.trim();
-  
+
 let waitList = {
     name: guestName,
     phone: guestPhone,
