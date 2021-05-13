@@ -14,6 +14,14 @@ app.use(express.json());
 
 // Star Wars Characters (DATA)
 
+const waitList = [
+	{
+    ID: 'Stove',
+    name: 'Stoven Soreler',
+    Email: 'stoven@stove.com',
+    Phone: 5165556789,
+  }
+]
 const tables = [
   {
     ID: 'Steve',
@@ -30,27 +38,25 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 app.get('/reservation', (req, res) => res.sendFile(path.join(__dirname, 'reservation.html')));
 
-app.get('/api/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html')));
+app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html')));
 
-app.get('/api/waitlist', (req, res) => res.sendFile(path.join(__dirname, 'waitlist.html')));
+app.get('/api/waitlist', (req, res) => res.json(waitList));
 
-// Displays all characters
-app.get('/tables', (req, res) => res.json(tables));
+// Displays all tables
+app.get('/api/tables', (req, res) => res.json(tables));
 
 
-// Create New Characters - takes in JSON input
-app.post('/api/characters', (req, res) => {
-  // req.body hosts is equal to the JSON post sent from the user
-  // This works because of our body parsing middleware
-  const newCharacter = req.body;
-
-  // Using a RegEx Pattern to remove spaces from newCharacter
-  // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-  newCharacter.routeName = newCharacter.name.replace(/\s+/g, '').toLowerCase();
-  console.log(newCharacter);
-
-  characters.push(newCharacter);
-  res.json(newCharacter);
+// Create New Tables - takes in JSON input
+app.post('/api/tables', (req, res) => {
+  const newTable = req.body;
+  newTable.routeName = newTable.name.replace(/\s+/g, '').toLowerCase();
+  console.log(newTable);
+if (tables.length >= 4) {
+	waitList.push(newTable)
+} else {
+  tables.push(newTable);
+}
+  res.json(newTable);
 });
 
 // Starts the server to begin listening
